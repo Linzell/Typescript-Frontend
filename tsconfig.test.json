@@ -1,0 +1,21 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.test.tsbuildinfo",
+    "types": [
+      "bun-types",
+      "node",
+      "@testing-library/jest-dom"
+    ],
+    "jsx": "react-jsx"
+  },
+  "include": [
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.stories.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

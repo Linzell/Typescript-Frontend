@@ -1,5 +1,5 @@
 {
-  "files": [], /* Specify multiple folders that act like './node_modules/@types'. */
+  "files": [],
   "references": [
     {
       "path": "./tsconfig.app.json"
@@ -14,12 +14,6 @@
       "@/*": [
         "src/*"
       ]
-    },
-    "types": [
-      "bun-types"
-    ],
-  },
-  "include": [
-    "src"
-  ],
+    }
+  }
 }
