@@ -1,35 +1,63 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import React, { ReactElement, Suspense } from "react";
+import { RouterProvider } from "@tanstack/react-router";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
+import { ThemeProvider } from "@/providers/theme-provider";
+import { router } from "@/providers/router-provider";
+
+const queryClient = new QueryClient()
+
+const ReactQueryDevtoolsProduction = React.lazy(() =>
+  import('@tanstack/react-query-devtools/build/modern/production.js').then(
+    (d) => ({
+      default: d.ReactQueryDevtools,
+    }),
+  ),
+)
+
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+/**
+ * Main application component that handles routing and toast notifications.
+ *
+ * This component is wrapped in Tailwind ThemeProvider and StrictMode at the root level
+ * to provide Material-UI theming and additional development checks.
+ *
+ * @example
+ * ```tsx
+ * // Basic usage in root
+ * <React.StrictMode>
+ *   <App />
+ * </React.StrictMode>
+ * ```
+ *
+ * @returns {React.ReactElement} The rendered application component with routing and notifications
+ * @see {@link ThemeProvider} For theme configuration
+ * @see {@link BrowserRouter} For routing implementation
+ * @see {@link ToastContainer} For notification system
+ */
+function App(): ReactElement {
+  const [showDevtools, setShowDevtools] = React.useState(false)
+
+  React.useEffect(() => {
+    // @ts-expect-error
+    window.toggleDevtools = () => setShowDevtools((old) => !old)
+  }, [])
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools />
+      <Suspense fallback={<div data-testid="suspense-loading">Loading...</div>}>
+        <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
+          {showDevtools && (
+            <ReactQueryDevtoolsProduction />
+          )}
+          <RouterProvider router={router} />
+        </ThemeProvider>
+      </Suspense>
+    </QueryClientProvider>
+  );
 }
 
 export default App

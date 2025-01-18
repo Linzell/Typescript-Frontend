@@ -1,0 +1,30 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": [
+    "import",
+    "unicorn",
+    "promise",
+    "typescript",
+    "oxc",
+    "vitest",
+    "react",
+    "react-hooks",
+    "react-perf",
+    "oxc-security",
+    "jsdoc",
+    "jsx-a11y"
+  ],
+  "env": {
+    "browser": true
+  },
+  "globals": {
+    "foo": "readonly"
+  },
+  "settings": {},
+  "rules": {
+    "eqeqeq": "warn",
+    "import/no-cycle": "error",
+    "jsx-a11y/label-has-associated-control": "off",
+    "jsx-a11y/no-autofocus": "off"
+  }
+}

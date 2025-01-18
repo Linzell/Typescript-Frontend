@@ -1,0 +1,110 @@
+{
+  "notFound": {
+    "title": "Page non trouvée",
+    "description": "Désolé, la page que vous recherchez n'existe pas.",
+    "goBack": "Retour"
+  },
+  "errorComponent": {
+    "title": "Oups, quelque chose s'est mal passé!",
+    "message": "Ne vous inquiétez pas, notre support technique a automatiquement signalé cette erreur.",
+    "message2": "Si vous souhaitez la suivre plus tard ou partager plus de détails avec nous,",
+    "message3": "vous pouvez utiliser le support"
+  },
+  "auth": {
+    "signIn": {
+      "pageTitle": "Connexion - Gestionnaire de médicaments",
+      "title": "Connectez-vous à votre compte",
+      "signUpLink": "Vous n'avez pas de compte? Inscrivez-vous"
+    },
+    "logout": {
+      "confirmTitle": "Confirmer la déconnexion",
+      "confirmMessage": "Êtes-vous sûr de vouloir vous déconnecter?",
+      "confirm": "Déconnexion",
+      "loggingOut": "Déconnexion en cours...",
+      "pageTitle": "Déconnexion - Gestionnaire de médicaments"
+    },
+    "errors": {
+      "invalidEmail": "Veuillez saisir une adresse email valide",
+      "passwordLength": "Le mot de passe doit comporter au moins 6 caractères",
+      "generic": "Une erreur s'est produite lors de la connexion",
+      "unauthorized": "Votre session a expiré. Veuillez vous reconnecter.",
+      "authContextError": "Le contexte d'authentification doit être utilisé dans le fournisseur d'authentification"
+    },
+    "form": {
+      "emailPlaceholder": "Entrez votre email",
+      "emailLabel": "Email",
+      "passwordPlaceholder": "Entrez votre mot de passe",
+      "passwordLabel": "Mot de passe",
+      "signingIn": "Connexion en cours...",
+      "signIn": "Se connecter"
+    },
+    "signup": {
+      "pageTitle": "Inscription - Gestionnaire de médicaments",
+      "createAccount": "Créez votre compte",
+      "signInLink": "Vous avez déjà un compte? Connectez-vous",
+      "namePlaceholder": "Entrez votre nom",
+      "nameLabel": "Nom",
+      "emailPlaceholder": "Entrez votre email",
+      "emailLabel": "Email",
+      "passwordPlaceholder": "Entrez votre mot de passe",
+      "passwordLabel": "Mot de passe",
+      "confirmPasswordPlaceholder": "Confirmez votre mot de passe",
+      "confirmPasswordLabel": "Confirmer le mot de passe",
+      "loading": "Création du compte...",
+      "submit": "S'inscrire",
+      "genericError": "Une erreur s'est produite lors de l'inscription"
+    }
+  },
+  "common": {
+    "cancel": "Annuler",
+    "error": "Erreur",
+    "backToMedications": "Retour aux médicaments"
+  },
+  "medications": {
+    "pageTitle": "Médicaments - Gestionnaire de médicaments",
+    "title": "Médicaments",
+    "search": {
+      "placeholder": "Rechercher des médicaments..."
+    },
+    "activeIngredient": {
+      "placeholder": "Filtrer par principe actif..."
+    },
+    "activeIngredients": {
+      "title": "Principes actifs",
+      "nameColumn": "Nom",
+      "strengthColumn": "Concentration"
+    },
+    "routes": {
+      "all": "Toutes les voies",
+      "oral": "Orale",
+      "topical": "Topique",
+      "intravenous": "Intraveineuse",
+      "intramuscular": "Intramusculaire"
+    },
+    "error": "Erreur lors du chargement des médicaments: {{message}}",
+    "administrationRoute": {
+      "title": "Voie d'administration"
+    },
+    "manufacturer": "Fabricant",
+    "manufacturedBy": "Fabriqué par {{manufacturer}}",
+    "packaging": {
+      "title": "Emballages disponibles"
+    },
+    "detail": {
+      "loading": "Chargement des détails du médicament",
+      "error": "Erreur lors du chargement du médicament",
+      "notFound": "Médicament non trouvé",
+      "title": "Détails du médicament",
+      "medicationNotFound": "Le médicament demandé n'a pas été trouvé"
+    }
+  },
+  "errors": {
+    "unauthorized": "Votre session a expiré. Veuillez vous reconnecter.",
+    "authContextError": "Le contexte d'authentification doit être utilisé dans le fournisseur d'authentification"
+  },
+  "theme": {
+    "error": {
+      "useThemeContext": "useTheme doit être utilisé dans ThemeProvider"
+    }
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "notFound": {
+    "title": "Page not found",
+    "description": "Sorry, the page you are looking for does not exist.",
+    "goBack": "Go back"
+  },
+  "errorComponent": {
+    "title": "Oops, something went wrong!",
+    "message": "Don't worry, our technical support got this error reported automatically.",
+    "message2": "If you wish to track it later or share more details with us,",
+    "message3": "you can use the support"
+  },
+  "auth": {
+    "signIn": {
+      "pageTitle": "Sign In - Medication Manager",
+      "title": "Sign in to your account",
+      "signUpLink": "Don't have an account? Sign up"
+    },
+    "logout": {
+      "confirmTitle": "Confirm Logout",
+      "confirmMessage": "Are you sure you want to logout?",
+      "confirm": "Logout",
+      "loggingOut": "Logging out...",
+      "pageTitle": "Logout - Medication Manager"
+    },
+    "errors": {
+      "invalidEmail": "Please enter a valid email address",
+      "passwordLength": "Password must be at least 6 characters long",
+      "generic": "An error occurred during sign in",
+      "unauthorized": "Your session has expired. Please sign in again.",
+      "authContextError": "Auth Context must be used within Auth Provider"
+    },
+    "form": {
+      "emailPlaceholder": "Enter your email",
+      "emailLabel": "Email",
+      "passwordPlaceholder": "Enter your password",
+      "passwordLabel": "Password",
+      "signingIn": "Signing in...",
+      "signIn": "Sign in"
+    },
+    "signup": {
+      "pageTitle": "Sign Up - Medication Manager",
+      "createAccount": "Create your account",
+      "signInLink": "Already have an account? Sign in",
+      "namePlaceholder": "Enter your name",
+      "nameLabel": "Name",
+      "emailPlaceholder": "Enter your email",
+      "emailLabel": "Email",
+      "passwordPlaceholder": "Enter your password",
+      "passwordLabel": "Password",
+      "confirmPasswordPlaceholder": "Confirm your password",
+      "confirmPasswordLabel": "Confirm password",
+      "loading": "Creating account...",
+      "submit": "Sign up",
+      "genericError": "An error occurred during sign up"
+    }
+  },
+  "common": {
+    "cancel": "Cancel",
+    "error": "Error",
+    "backToMedications": "Back to Medications"
+  },
+  "medications": {
+    "pageTitle": "Medications - Medication Manager",
+    "title": "Medications",
+    "search": {
+      "placeholder": "Search medications..."
+    },
+    "activeIngredient": {
+      "placeholder": "Filter by active ingredient..."
+    },
+    "activeIngredients": {
+      "title": "Active Ingredients",
+      "nameColumn": "Name",
+      "strengthColumn": "Strength"
+    },
+    "routes": {
+      "all": "All Routes",
+      "oral": "Oral",
+      "topical": "Topical",
+      "intravenous": "Intravenous",
+      "intramuscular": "Intramuscular"
+    },
+    "error": "Error loading medications: {{message}}",
+    "administrationRoute": {
+      "title": "Administration Route"
+    },
+    "manufacturer": "Manufacturer",
+    "manufacturedBy": "Manufactured by {{manufacturer}}",
+    "packaging": {
+      "title": "Available Packaging"
+    },
+    "detail": {
+      "loading": "Loading Medication Details",
+      "error": "Error Loading Medication",
+      "notFound": "Medication Not Found",
+      "title": "Medication Details",
+      "medicationNotFound": "The requested medication could not be found"
+    }
+  },
+  "errors": {
+    "unauthorized": "Your session has expired. Please sign in again.",
+    "authContextError": "Auth Context must be used within Auth Provider"
+  },
+  "theme": {
+    "error": {
+      "useThemeContext": "useTheme must be used within ThemeProvider"
+    }
+  }
+}
