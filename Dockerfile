@@ -3,6 +3,14 @@ FROM oven/bun:1 as builder
 
 WORKDIR /app
 
+# Add build arguments
+ARG API_URL
+ARG VITE_BACKEND_URL
+
+# Set environment variables
+ENV API_URL=$API_URL
+ENV VITE_BACKEND_URL=$VITE_BACKEND_URL
+
 # Install dependencies
 COPY package.json bun.lockb ./
 COPY tsconfig*.json ./
@@ -21,6 +29,9 @@ RUN bun run build
 
 # Production stage
 FROM nginx:alpine
+
+# Set environment variable for nginx configuration
+ENV API_URL=${API_URL}
 
 # Copy built assets from builder stage
 COPY --from=builder /app/dist /usr/share/nginx/html
