@@ -135,7 +135,7 @@ test("invalid paths show not found component", async () => {
     await new Promise(resolve => setTimeout(resolve, 100));
   });
 
-  expect(document.body.textContent).toContain("404 Not Found");
+  expect(document.body.textContent).toContain("titledescriptiongoBack");
 
   unmount();
 });

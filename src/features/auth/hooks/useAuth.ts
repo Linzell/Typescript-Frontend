@@ -3,7 +3,7 @@ import { useNavigate } from '@tanstack/react-router';
 import { useAuthContext } from '@/providers/auth-provider';
 import { AuthService } from '@/services/auth.service';
 import { useMutation } from '@tanstack/react-query';
-import { handleApiError } from '@/lib/api-middleware';
+import { toast } from 'react-toastify';
 
 /**
  * Hook that provides authentication functionality including login, logout and registration
@@ -31,7 +31,8 @@ export function useAuth() {
       }
     },
     onError: (error: Error) => {
-      console.error('Login error:', handleApiError(error as any));
+      clearAuth();
+      toast.error(error.message);
     },
   });
 
@@ -42,26 +43,14 @@ export function useAuth() {
       navigate({ to: '/auth/sign-in' });
     },
     onError: (error: Error) => {
-      console.error('Logout error:', handleApiError(error as any));
-    },
-  });
-
-  const registerMutation = useMutation({
-    mutationFn: AuthService.register,
-    onSuccess: () => {
-      setAuthenticated(true);
-      navigate({ to: '/app/medications' });
-    },
-    onError: (error: Error) => {
-      console.error('Register error:', handleApiError(error as any));
+      toast.error(error.message);
     },
   });
 
   return {
     login: loginMutation.mutate,
     logout: logoutMutation.mutate,
-    register: registerMutation.mutate,
-    isLoading: loginMutation.isPending || logoutMutation.isPending || registerMutation.isPending,
-    error: loginMutation.error || logoutMutation.error || registerMutation.error,
+    isLoading: loginMutation.isPending || logoutMutation.isPending,
+    error: loginMutation.error?.message || logoutMutation.error?.message,
   };
 }

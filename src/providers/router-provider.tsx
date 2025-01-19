@@ -23,6 +23,7 @@ import { MedicationDetailPage } from "@/pages/medications/MedicationDetailPage";
 
 import { NotFound } from "@/components/NotFound";
 import { ErrorComponent } from "@/components/ErrorComponent";
+import { PublicLayout } from "@/layouts/publicLayout";
 
 /**
  * Lazy loaded router devtools component for development
@@ -109,7 +110,9 @@ const publicLayout = createRoute({
   id: "public",
   component: () => (
     <PublicOnlyRoute>
-      <Outlet />
+      <PublicLayout>
+        <Outlet />
+      </PublicLayout>
     </PublicOnlyRoute>
   ),
 });

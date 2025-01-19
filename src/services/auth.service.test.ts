@@ -15,14 +15,6 @@ mock.module("@/lib/api-client", () => ({
   axiosInstance: mockAxiosInstance
 }));
 
-// Mock localStorage
-const mockRemoveItem = mock(() => { });
-global.localStorage = {
-  getItem: mock(() => null),
-  setItem: mock(() => { }),
-  removeItem: mockRemoveItem,
-} as any;
-
 beforeEach(() => {
   // Reset mock implementations
   mockPost.mockImplementation(async () => ({ data: { message: "Success" } }));
@@ -44,15 +36,10 @@ test("login - successful authentication", async () => {
   );
 });
 
-test("login - handles authentication failure", async () => {
-  mockPost.mockImplementation(async () => {
-    throw {
-      response: {
-        status: 401,
-        data: { message: "Invalid credentials" }
-      }
-    };
-  });
+test("login - handles authentication error", async () => {
+  mockPost.mockImplementation(async () => ({
+    data: { error: "Invalid credentials" }
+  }));
 
   const credentials = {
     email: "test@example.com",
@@ -63,8 +50,7 @@ test("login - handles authentication failure", async () => {
     await AuthService.login(credentials);
     expect("should not reach here").toBe(false);
   } catch (error: any) {
-    expect(error.response.status).toBe(401);
-    expect(error.response.data.message).toBe("Invalid credentials");
+    expect(error.message).toBe("Invalid credentials");
   }
 });
 
@@ -85,15 +71,10 @@ test("register - successful registration", async () => {
   );
 });
 
-test("register - handles registration failure", async () => {
-  mockPost.mockImplementation(async () => {
-    throw {
-      response: {
-        status: 400,
-        data: { message: "Email already exists" }
-      }
-    };
-  });
+test("register - handles registration error", async () => {
+  mockPost.mockImplementation(async () => ({
+    data: { error: "Email already exists" }
+  }));
 
   const credentials = {
     email: "existing@example.com",
@@ -105,37 +86,31 @@ test("register - handles registration failure", async () => {
     await AuthService.register(credentials);
     expect("should not reach here").toBe(false);
   } catch (error: any) {
-    expect(error.response.status).toBe(400);
-    expect(error.response.data.message).toBe("Email already exists");
+    expect(error.message).toBe("Email already exists");
   }
 });
 
 test("logout - successful logout", async () => {
-  await AuthService.logout();
+  const response = await AuthService.logout();
 
+  expect(response.message).toBe("Success");
   expect(mockPost).toHaveBeenCalledWith(
     "/auth/logout",
+    {},
     { withCredentials: true }
   );
-  expect(mockRemoveItem).toHaveBeenCalledWith("token");
 });
 
-test("logout - handles logout failure", async () => {
-  mockPost.mockImplementation(async () => {
-    throw {
-      response: {
-        status: 500,
-        data: { message: "Server error" }
-      }
-    };
-  });
+test("logout - handles logout error", async () => {
+  mockPost.mockImplementation(async () => ({
+    data: { error: "Logout failed" }
+  }));
 
   try {
     await AuthService.logout();
     expect("should not reach here").toBe(false);
   } catch (error: any) {
-    expect(error.response.status).toBe(500);
-    expect(error.response.data.message).toBe("Server error");
+    expect(error.message).toBe("Logout failed");
   }
 });
 
@@ -150,18 +125,14 @@ test("validation - handles invalid response data", async () => {
       password: "password123"
     });
     expect("should not reach here").toBe(false);
-  } catch (error) {
+  } catch (error: any) {
     expect(error).toBeTruthy();
   }
 });
 
 test("handles network errors", async () => {
   mockPost.mockImplementation(async () => {
-    throw {
-      message: "Network Error",
-      isAxiosError: true,
-      response: undefined
-    };
+    throw new Error("Network Error");
   });
 
   try {
@@ -172,6 +143,5 @@ test("handles network errors", async () => {
     expect("should not reach here").toBe(false);
   } catch (error: any) {
     expect(error.message).toBe("Network Error");
-    expect(error.isAxiosError).toBe(true);
   }
 });

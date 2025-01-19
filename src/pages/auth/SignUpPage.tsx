@@ -19,24 +19,22 @@ export function SignUpPage() {
         <title>{t('signup.pageTitle', 'Sign Up - Medication Manager')}</title>
       </Helmet>
 
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-md w-full space-y-8">
-          <div>
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-              {t('signup.createAccount', 'Create your account')}
-            </h2>
-          </div>
+      <div className="w-full max-w-md space-y-8">
+        <div>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            {t('signup.createAccount', 'Create your account')}
+          </h2>
+        </div>
 
-          <SignUpForm />
+        <SignUpForm />
 
-          <div className="text-center">
-            <Link
-              to="/auth/sign-in"
-              className="font-medium text-indigo-600 hover:text-indigo-500"
-            >
-              {t('signup.signInLink', 'Already have an account? Sign in')}
-            </Link>
-          </div>
+        <div className="text-center">
+          <Link
+            to="/auth/sign-in"
+            className="font-medium text-indigo-600 hover:text-indigo-500"
+          >
+            {t('signup.signInLink', 'Already have an account? Sign in')}
+          </Link>
         </div>
       </div>
     </>

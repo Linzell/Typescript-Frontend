@@ -7,11 +7,19 @@ import { Input } from '@/components/ui/input';
 import { useAuth } from '../hooks/useAuth';
 import { useTranslation } from 'react-i18next';
 
+/**
+ * Schema for sign in form validation
+ * @remarks Defines required email and password fields with validation rules
+ */
 const signInSchema = z.object({
   email: z.string().email('auth.errors.invalidEmail'),
   password: z.string().min(6, 'auth.errors.passwordLength'),
+  redirectToPath: z.string().optional(),
 });
 
+/**
+ * Type definition for sign in form data
+ */
 type SignInFormData = z.infer<typeof signInSchema>;
 
 /**
@@ -24,13 +32,17 @@ interface SignInFormProps {
 
 /**
  * A form component for user authentication
- * @param {SignInFormProps} props - The component props
- * @returns {JSX.Element} The rendered sign in form
+ * @param props - The component props
+ * @param props.redirectToPath - Optional redirect path after successful login, defaults to '/'
+ * @returns The rendered sign in form component
  */
 export function SignInForm({ redirectToPath = '/' }: SignInFormProps) {
   const { t } = useTranslation();
-  const { login, isLoading, error } = useAuth();
+  const { login: loginUser, isLoading, error } = useAuth();
 
+  /**
+   * Form hook configuration with validation
+   */
   const {
     register,
     handleSubmit,
@@ -39,8 +51,12 @@ export function SignInForm({ redirectToPath = '/' }: SignInFormProps) {
     resolver: zodResolver(signInSchema),
   });
 
+  /**
+   * Handles form submission
+   * @param data - The form data to submit
+   */
   const onSubmit = (data: SignInFormData) => {
-    login({ email: data.email, password: data.password, redirectToPath });
+    loginUser({ ...data, redirectToPath });
   };
 
   return (

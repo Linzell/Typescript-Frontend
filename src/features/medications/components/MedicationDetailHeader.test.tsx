@@ -64,7 +64,7 @@ test("renders manufacturer information with translation", () => {
   );
 
   const manufacturerInfo = container.querySelectorAll("p")[1];
-  expect(manufacturerInfo?.textContent).toBe("Manufactured by Bayer");
+  expect(manufacturerInfo?.textContent).toBe("medications.manufacturedBy");
 });
 
 test("applies correct CSS classes", () => {

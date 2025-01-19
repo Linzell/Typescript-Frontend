@@ -21,24 +21,22 @@ export function SignInPage() {
         <title>{t('auth.signIn.pageTitle', 'Sign In - Medication Manager')}</title>
       </Helmet>
 
-      <div className="w-full h-full min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="w-full max-w-md space-y-8 px-4 sm:px-6 lg:px-8 py-12">
-          <div>
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-              {t('auth.signIn.title', 'Sign in to your account')}
-            </h2>
-          </div>
+      <div className="w-full max-w-md space-y-8">
+        <div>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            {t('auth.signIn.title', 'Sign in to your account')}
+          </h2>
+        </div>
 
-          <SignInForm redirectToPath={redirectToPath} />
+        <SignInForm redirectToPath={redirectToPath} />
 
-          <div className="text-center">
-            <Link
-              to="/auth/sign-up"
-              className="font-medium text-indigo-600 hover:text-indigo-500"
-            >
-              {t('auth.signIn.signUpLink', "Don't have an account? Sign up")}
-            </Link>
-          </div>
+        <div className="text-center">
+          <Link
+            to="/auth/sign-up"
+            className="font-medium text-indigo-600 hover:text-indigo-500"
+          >
+            {t('auth.signIn.signUpLink', "Don't have an account? Sign up")}
+          </Link>
         </div>
       </div>
     </>

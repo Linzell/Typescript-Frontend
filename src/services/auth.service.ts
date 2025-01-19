@@ -3,13 +3,17 @@ import { axiosInstance } from '@/lib/api-client';
 import { z } from 'zod';
 
 /**
- * Schema for validating login/register response from API
+ * Interface for login/register response
+ * @interface AuthResponse
+ * @property {string} message - Response message
+ * @property {string} [error] - Optional error message
  */
-const LoginResponseSchema = z.object({
-  message: z.string(),
+const ApiResponseSchema = z.object({
+  message: z.string().optional(),
+  error: z.string().optional(),
 });
 
-export type LoginResponse = z.infer<typeof LoginResponseSchema>;
+export type ApiResponse = z.infer<typeof ApiResponseSchema>;
 
 /**
  * Interface for login credentials
@@ -18,7 +22,7 @@ export type LoginResponse = z.infer<typeof LoginResponseSchema>;
  * @property {string} password - User's password
  * @property {string} [redirectToPath] - Optional path to redirect after login
  */
-interface LoginCredentials {
+export interface LoginCredentials {
   email: string;
   password: string;
   redirectToPath?: string;
@@ -31,7 +35,7 @@ interface LoginCredentials {
  * @property {string} password - User's password
  * @property {string} name - User's display name
  */
-interface RegisterCredentials {
+export interface RegisterCredentials {
   email: string;
   password: string;
   name: string;
@@ -44,43 +48,65 @@ export class AuthService {
   /**
    * Authenticates a user with their credentials
    * @param {LoginCredentials} credentials - User login credentials
-   * @throws {Error} When authentication fails
-   * @returns {Promise<LoginResponse>} Promise with login response containing message
+   * @returns {Promise<AuthResponse>} Promise with login response containing message or error
    */
-  static async login(credentials: LoginCredentials): Promise<LoginResponse> {
-    const { data } = await axiosInstance.post(
-      "/auth/login",
-      credentials,
-      { withCredentials: true }
-    );
-    return LoginResponseSchema.parse(data);
+  static async login(credentials: LoginCredentials): Promise<ApiResponse> {
+    return axiosInstance.post("/auth/login", credentials, { withCredentials: true })
+      .then(({ data }) => {
+        const parsed = ApiResponseSchema.parse(data);
+        if (parsed.error) {
+          throw new Error(parsed.error);
+        }
+        return { message: parsed.message };
+      })
+      .catch(error => {
+        if (error.response?.data?.error) {
+          throw new Error(error.response.data.error);
+        }
+        throw new Error(error.message || 'Login failed');
+      });
   }
 
   /**
    * Registers a new user
    * @param {RegisterCredentials} credentials - User registration credentials
-   * @throws {Error} When registration fails
-   * @returns {Promise<LoginResponse>} Promise with registration response containing message
+   * @returns {Promise<AuthResponse>} Promise with registration response containing message or error
    */
-  static async register(credentials: RegisterCredentials): Promise<LoginResponse> {
-    const { data } = await axiosInstance.post(
-      "/auth/register",
-      credentials,
-      { withCredentials: true }
-    );
-    return LoginResponseSchema.parse(data);
+  static async register(credentials: RegisterCredentials): Promise<ApiResponse> {
+    return axiosInstance.post("/auth/register", credentials, { withCredentials: true })
+      .then(({ data }) => {
+        const parsed = ApiResponseSchema.parse(data);
+        if (parsed.error) {
+          throw new Error(parsed.error);
+        }
+        return { message: parsed.message };
+      })
+      .catch(error => {
+        if (error.response?.data?.error) {
+          throw new Error(error.response.data.error);
+        }
+        throw new Error(error.message || 'Registration failed');
+      });
   }
 
   /**
    * Logs out the current user and cleans up local storage
-   * @throws {Error} When logout request fails
-   * @returns {Promise<void>} Promise that resolves when logout is complete
+   * @returns {Promise<AuthResponse>} Promise with logout response containing message or error
    */
-  static async logout(): Promise<void> {
-    await axiosInstance.post(
-      "/auth/logout",
-      { withCredentials: true }
-    );
-    localStorage.removeItem('token');
+  static async logout(): Promise<ApiResponse> {
+    return axiosInstance.post("/auth/logout", {}, { withCredentials: true })
+      .then(({ data }) => {
+        const parsed = ApiResponseSchema.parse(data);
+        if (parsed.error) {
+          throw new Error(parsed.error);
+        }
+        return { message: parsed.message };
+      })
+      .catch(error => {
+        if (error.response?.data?.error) {
+          throw new Error(error.response.data.error);
+        }
+        throw new Error(error.message || 'Logout failed');
+      });
   }
 }
