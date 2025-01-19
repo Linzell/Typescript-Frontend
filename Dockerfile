@@ -24,6 +24,9 @@ RUN bun install
 # Copy source code
 COPY . .
 
+# Copy static files
+COPY 50x.html /usr/share/nginx/html/50x.html
+
 # Build the application
 RUN bun run build
 
